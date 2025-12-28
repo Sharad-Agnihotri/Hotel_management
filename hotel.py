@@ -19,8 +19,8 @@ def get_product_details_from_args(args):
     }
 
 def display_product(product):
-    print("Price per item:", product["price"])
-    print("Quantity:", product["quantity"])
+    print("Price per room:", product["price"])
+    print("Quantity of room:", product["quantity"])
     print("Discount:", product["discount"], "%")
 
     if product["final_price"] > 0:
