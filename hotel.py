@@ -1,24 +1,40 @@
 import sys
 
-if len(sys.argv) != 4:
-    print("Usage: python hotel.py <room_price> <discount> <nights>")
-    sys.exit(1)
+def calculate_discount(total_price, discount):
+    return total_price - (total_price * discount / 100)
 
-price = float(sys.argv[1])       
-discount = float(sys.argv[2])   
-quantity = int(sys.argv[3])      
+def get_product_details_from_args(args):
+    price = float(args[1])
+    discount = float(args[2])
+    quantity = int(args[3])
 
-total_price = price * quantity
-discount_amount = total_price * discount / 100
-final_price = total_price - discount_amount
+    total_price = price * quantity
+    final_price = calculate_discount(total_price, discount)
 
-print(f"Room Price per Night: {price}")
-print(f"Number of Nights: {quantity}")
-print(f"Discount: {discount}%")
+    return {
+        "price": price,
+        "quantity": quantity,
+        "discount": discount,
+        "final_price": final_price
+    }
 
-if final_price > 0:
-    print(f"Final Hotel Bill: {final_price}")
-elif final_price == 0:
-    print("Final hotel bill is zero")
-else:
-    print("Invalid calculation")
+def display_product(product):
+    print("Price per item:", product["price"])
+    print("Quantity:", product["quantity"])
+    print("Discount:", product["discount"], "%")
+
+    if product["final_price"] > 0:
+        print("Final Price:", product["final_price"])
+    elif product["final_price"] == 0:
+        print("Final price is zero")
+    else:
+        print("Invalid calculation")
+
+if __name__ == "__main__":
+    if len(sys.argv) != 4:
+        print("Usage: python app.py <price> <discount> <quantity>")
+        sys.exit(1)
+
+    product = get_product_details_from_args(sys.argv)
+    display_product(product)
+
